@@ -12,7 +12,6 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
-//const myGraphQLSchema = // ... define or import your schema here!
 const PORT = 8080;
 
 const app = express();
@@ -26,6 +25,8 @@ app.use(
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-app.listen(PORT, () => {
-  console.info(`Server listening on port ${PORT}`);
+models.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.info(`Server listening on port ${PORT}`);
+  });
 });

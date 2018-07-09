@@ -1,13 +1,14 @@
 import Sequelize from'sequelize';
 
-const sequelize = new Sequelize('slack-clone', 'postgres', 'passwd');
+const sequelize = new Sequelize('slack-clone', 'postgres', 'passwd', {
+  dialect: 'postgres',
+});
 
 const models = {
-  user: sequelize.import('./user'),
-  channel: sequelize.import('./channel'),
-  member: sequelize.import('./member'),
-  message: sequelize.import('./message'),
-  team: sequelize.import('./team'),
+  User: sequelize.import('./user'),
+  Channel: sequelize.import('./channel'),
+  Message: sequelize.import('./message'),
+  Team: sequelize.import('./team'),
 };
 
 
