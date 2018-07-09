@@ -4,6 +4,7 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import cors from 'cors';
 import models from './models';
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
@@ -18,6 +19,9 @@ const schema = makeExecutableSchema({
 const PORT = 8080;
 
 const app = express();
+
+// allow cross-origin requests
+app.use(cors());
 
 // bodyParser is needed just for POST.
 app.use(
