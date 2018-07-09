@@ -1,7 +1,11 @@
 import Sequelize from'sequelize';
 
-const sequelize = new Sequelize('slack-clone', 'postgres', 'passwd', {
+const sequelize = new Sequelize({
+  database: 'slack-clone',
+  username: 'postgres',
+  password: 'passwd',
   dialect: 'postgres',
+  underscored: 'true',
 });
 
 const models = {
