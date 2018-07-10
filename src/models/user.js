@@ -3,12 +3,28 @@ export default (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       unique: true,
+      validate: {
+        isAlphanumeric: {
+          args: true,
+          msg: 'Can only contain numbers and letters',
+        },
+        len: {
+          args: [ 3, 25 ],
+          msg: 'Only between 3 and 25 characters'
+        },
+      }
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Not a valid email address'
+        }
+      }
     },
-    password: DataTypes.STRING,
+    password: DataTypes.STRING
   });
 
   User.associate = (models) => {
