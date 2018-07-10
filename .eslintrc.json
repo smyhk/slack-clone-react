@@ -5,7 +5,8 @@
     "es6": true,
     "node": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["prettier"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -19,7 +20,6 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": ["warn", { "allow": ["info", "error"] }],
-    "array-bracket-spacing": [2, "always"],
     "no-use-before-define": [2, "nofunc"],
     "no-shadow": 0,
     "prefer-const": 1,
@@ -27,6 +27,7 @@
     "space-before-function-paren": [
       2,
       { "anonymous": "always", "named": "never" }
-    ]
+    ],
+    "prettier/prettier": "error"
   }
 }

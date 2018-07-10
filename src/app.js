@@ -7,9 +7,14 @@ import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import cors from 'cors';
 import models from './models';
 
+const SECRET = 'ksfbiu48e9fhfsbfeh8ses';
+const SECRET2 = 'ksfbiu48e9fhfsbfeh8sesgrkgfefj4l5ntt5nglekgn';
+
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 
-const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
+const resolvers = mergeResolvers(
+  fileLoader(path.join(__dirname, './resolvers'))
+);
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -27,11 +32,13 @@ app.use(cors());
 app.use(
   '/graphql',
   bodyParser.json(),
-  graphqlExpress({ 
-    schema, 
+  graphqlExpress({
+    schema,
     context: {
       models,
-      user: { id: 1 }
+      user: { id: 1 },
+      SECRET,
+      SECRET2
     }
   })
 );
