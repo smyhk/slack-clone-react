@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import _ from 'lodash';
 
 import { tryLogin } from '../../auth';
@@ -19,24 +18,10 @@ export default {
   Mutation: {
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>
       tryLogin(email, password, models, SECRET, SECRET2),
-    registerUser: async (parent, { password, ...otherArgs }, { models }) => {
+    registerUser: async (parent, args, { models }) => {
       try {
-        if (password.length < 6 || password.length > 41) {
-          return {
-            ok: false,
-            errors: [
-              {
-                path: 'password',
-                message: 'Password needs to be 6-40 characters'
-              }
-            ]
-          };
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await models.User.create({
-          ...otherArgs,
-          password: hashedPassword
-        });
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await models.User.create(args);
         return {
           ok: true,
           user
