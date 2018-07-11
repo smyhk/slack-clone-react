@@ -5,6 +5,7 @@ const sequelize = new Sequelize({
   username: 'postgres',
   password: 'passwd',
   dialect: 'postgres',
+  operatorsAliases: Sequelize.Op,
   define: {
     underscored: 'true'
   }

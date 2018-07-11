@@ -8,6 +8,7 @@ export default {
         });
         return true;
       } catch (err) {
+        console.info(err);
         return false;
       }
     }
