@@ -8,10 +8,10 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 
 import models from './models';
-import refreshTokens from '../auth';
+import { refreshTokens } from '../auth';
 
-const SECRET = 'ksfbiu48e9fhfsbfeh8ses';
-const SECRET2 = 'ksfbiu48e9fhfsbfeh8sesgrkgfefj4l5ntt5nglekgn';
+const SECRET = 'asiodfhoi1hoi23jnl1kejd';
+const SECRET2 = 'asiodfhoi1hoi23jnl1kejasdjlkfasdd';
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 
@@ -24,12 +24,9 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
-const PORT = 8080;
-
 const app = express();
 
-// allow cross-origin requests
-app.use(cors());
+app.use(cors('*'));
 
 const addUser = async (req, res, next) => {
   const token = req.headers['x-token'];
@@ -59,8 +56,10 @@ const addUser = async (req, res, next) => {
 
 app.use(addUser);
 
+const graphqlEndpoint = '/graphql';
+
 app.use(
-  '/graphql',
+  graphqlEndpoint,
   bodyParser.json(),
   graphqlExpress(req => ({
     schema,
@@ -73,10 +72,8 @@ app.use(
   }))
 );
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
 
-models.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.info(`Server listening on port ${PORT}`);
-  });
+models.sequelize.sync({}).then(() => {
+  app.listen(8080);
 });
