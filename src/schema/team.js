@@ -1,6 +1,6 @@
 export default `
   type Team {
-    id: ID!
+    id: Int!
     name: String!
     owner: User!
     members: [User!]!

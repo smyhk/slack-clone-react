@@ -1,6 +1,6 @@
 export default `
   type User {
-    id: ID!
+    id: Int!
     email: String!
     username: String!
     teams: [Team!]!
@@ -8,7 +8,7 @@ export default `
   }
 
   type Query {
-    getUser(id: ID!): User!
+    getUser(id: Int!): User!
     allUsers: [User!]!
   }
 
