@@ -12,11 +12,11 @@ export default {
     addTeamMember: requiresAuth.createResolver(
       async (parent, { email, teamId }, { models, user }) => {
         try {
-          const teamPromise = models.findOne(
+          const teamPromise = models.Team.findOne(
             { where: { id: teamId } },
             { raw: true }
           );
-          const userToAddPromise = models.findOne(
+          const userToAddPromise = models.User.findOne(
             { where: { email } },
             { raw: true }
           );
@@ -43,7 +43,7 @@ export default {
               errors: [
                 {
                   path: 'email',
-                  message: 'Coudld not find user with this email'
+                  message: 'Could not find user with this email'
                 }
               ]
             };
