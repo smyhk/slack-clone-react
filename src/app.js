@@ -6,9 +6,15 @@ import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+// import { PubSub } from 'graphql-subscriptions';
+import { execute, subscribe } from 'graphql';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import models from './models';
 import { refreshTokens } from '../auth';
+
+const PORT = 8080;
 
 const SECRET = 'asiodfhoi1hoi23jnl1kejd';
 const SECRET2 = 'asiodfhoi1hoi23jnl1kejasdjlkfasdd';
@@ -74,6 +80,23 @@ app.use(
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
 
+// Wrap the Express server
+const ws = createServer(app);
+
 models.sequelize.sync({}).then(() => {
-  app.listen(8080);
+  ws.listen(PORT, () => {
+    console.info(`Apollo Server is now running on http://localhost:${PORT}`);
+    // Set up the WebSocket for handling GraphQL subscriptions
+    new SubscriptionServer(
+      {
+        execute,
+        subscribe,
+        schema
+      },
+      {
+        server: ws,
+        path: '/subscriptions'
+      }
+    );
+  });
 });
