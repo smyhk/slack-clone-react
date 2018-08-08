@@ -5,8 +5,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -27,7 +26,6 @@
     "space-before-function-paren": [
       2,
       { "anonymous": "always", "named": "never" }
-    ],
-    "prettier/prettier": "error"
+    ]
   }
 }
